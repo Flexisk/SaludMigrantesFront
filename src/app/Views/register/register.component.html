@@ -1,0 +1,111 @@
+<app-header></app-header>
+<div class="container center-h center-v">
+    <p><small> Acreditación Domicilio > Solicitud > Registro </small> </p><br>
+    <mat-card-title>
+        <small> Acreditación Domicilio / Registro </small>
+    </mat-card-title>
+    <br>
+    <mat-card-subtitle>
+        Detalles del registro
+    </mat-card-subtitle>
+    <br>
+    <mat-card-content>
+        <ol>
+            <h4>
+                <strong>El núcleo familiar abajo descrito, según lo establecido en las normas vigentes, manifiesta <br>
+                    bajo gravedad de juramento:</strong>
+            </h4>
+            <li>
+                Que tiene residencia actual en Bogotá
+            </li>
+            <li>
+                Que conoce la obligación de tener una encuesta SISBÉN actualizada y que en caso de cambiar de <br>
+                residencia debe solicitar una nueva a la Secretaría Distrital de Planeación en un punto de atención <br>
+                de los ubicados en los CADE.
+            </li>
+            <li>
+                Que mientras tenga afiliación al régimen subsidiado de salud, se tiene la obligación de acreditar la <br>
+                permanencia en el país actualizando la información de domicilio cada cuatro (4) meses contados a partir de <br>
+                la última actualización, ante el municipio o distrito de residencia.
+            </li>
+            <li>
+                Que autoriza a la Secretaría Distrital de Salud de Bogotá para el tratamiento de los datos personales <br>
+                de conformidad con lo establecido en la Ley 1581 de 2012 y el Decreto 1377 de 2013.
+               
+            </li>
+        </ol>
+
+
+    </mat-card-content>
+    <div class=" center-h center-v">
+        <div>
+            <h4>Usuarios Registrados</h4>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="identificacion">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">identificación</th>
+                    <td mat-cell *matCellDef="let element"> {{element.docNum}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Usuario">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Usuario</th>
+                    <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.secondName}}
+                        {{element.surname}} {{element.secondSurname}}</td>
+                </ng-container>
+                <ng-container matColumnDef="nacimiento">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Fecha de nacimiento</th>
+                    <td mat-cell *matCellDef="let element">{{element.birthDate | date: 'dd/MM/yyyy'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="parentesco">
+                    <th mat-header-cell *matHeaderCellDef class="encabesado">Parentesco</th>
+                    <td mat-cell *matCellDef="let element">{{element.relationship}}</td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <br><br>
+            <p>En constancia confirmo los datos de ubicación y contacto:</p>
+
+            <form [formGroup]="formUpdate" (ngSubmit)="GetformUpdate(formUpdate.value)">
+
+                <mat-card-content>
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Dirección de domicilio</mat-label>
+                            <input matInput placeholder="Direccion de domicilio" formControlName="direction" >
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Teléfono de contacto</mat-label>
+                            <input matInput placeholder="Telefono de contacto" formControlName="mobile"  type="number" maxlength="10">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Localidad</mat-label>
+                            <mat-select formControlName="Localidad" formControlName="locationId">
+                                <mat-option [value]="location.locationId" *ngFor="let location of Location">
+                                    {{location.locationName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                </mat-card-content>
+
+
+                <mat-card-actions>   
+                    <button mat-raised-button color="primary" type="submit" class="btn">Aceptar</button>
+                    <button mat-raised-button type="button" class="btn" routerLink="/Request">Atras</button>
+                </mat-card-actions>
+
+            </form>
+
+
+
+        </div>
+
+    </div>
+</div>
+<app-footer [title]="title" [fecha]="fecha"></app-footer>
